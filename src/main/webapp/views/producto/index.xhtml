@@ -8,7 +8,7 @@
         <ui:composition template="./../newTemplate.xhtml">
 
             <ui:define name="content">
-                <table border="1">
+                <table id="t-all" class="jsf-data-table display nowrap" width="100%">
                     <thead>
                         <tr>
                             <th>ID PRODUCTO</th>
@@ -35,12 +35,24 @@
                     </tbody>
                 </table>
 
+                <script>
+                    $(document).ready(function () {
+                        $('.jsf-data-table').DataTable({
+                            dom: 'Bfrtip',
+                            "language": {
+                                "url": "https://cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json"
+                            },
+                            "pageLength": 50,
+                            buttons: [
+                                'copy', 'csv', 'excel', 'pdf', 'print'
+                            ]
+                        });
 
-
+                    });
+                </script>
 
             </ui:define>
 
         </ui:composition>
-
     </body>
 </html>
