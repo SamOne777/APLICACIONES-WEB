@@ -1,13 +1,16 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <body>
-
         <ui:composition template="./../newTemplate.xhtml">
-
             <ui:define name="content">
+                <h:form>
+                    <h:commandButton value="Registrar producto" action="#{productController.crearP1()}"/>
+                </h:form>
+
                 <table id="t-all" class="jsf-data-table display nowrap" width="100%">
                     <thead>
                         <tr>
@@ -16,8 +19,9 @@
                             <th>NOMBRE PRODUCTO</th>
                             <th>STOCK PRODUCTO</th>
                             <th>VALOR PRODUCTO</th>
-                            <th>IMAGEN PRODUCTO</th>
+                            <th>CATEGORÍA</th>
                             <th>ESTADO PRODUCTO</th>
+                            <th>ACCIONES</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -28,8 +32,14 @@
                                 <td>#{item.nombreProducto}</td>
                                 <td>#{item.stockProduccto}</td>
                                 <td>#{item.valorProducto}</td>
-                                <td>#{item.imagenProducto}</td>
+                                <td>#{item.categoriaProducto}</td>
                                 <td>#{item.estadoProducto}</td>
+                                <td>
+                                    <h:form>
+                                        <h:commandButton value="Editar"/>
+                                        <h:commandButton value="Eliminar" onclick="return confirm('¿Desea eliminar el registro?')"/>
+                                    </h:form>                             
+                                </td>
                             </tr>
                         </ui:repeat>
                     </tbody>
@@ -47,12 +57,9 @@
                                 'copy', 'csv', 'excel', 'pdf', 'print'
                             ]
                         });
-
                     });
                 </script>
-
             </ui:define>
-
         </ui:composition>
     </body>
 </html>

@@ -14,6 +14,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
+
 /**
  *
  * @author user
@@ -22,12 +23,11 @@ import javax.servlet.http.HttpSession;
 @SessionScoped
 public class login implements Serializable {
 
-    private Usuario user;
-    @EJB
-    private UsuarioFacadeLocal ufl;
-    
     private String usuario;
     private String contrasenna;
+    private Usuario user = new Usuario();
+    @EJB
+    private UsuarioFacadeLocal ufl;
 
     public String getUsuario() {
         return usuario;
@@ -46,10 +46,10 @@ public class login implements Serializable {
     }
 
     public String iniciarSesion() {
-      //  if (usuario.equals("admin") && contrasenna.equals("admin123")) {
-      user = this.ufl.iniciarSesion(usuario, contrasenna);
-      if (user.getIdUsuario()!=null) {      
-      HttpSession sesion = (HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+        //  if (usuario.equals("admin") && contrasenna.equals("admin123")) {
+        user = this.ufl.iniciarSesion(usuario, contrasenna);
+        if (user.getIdUsuario() != null) {
+            HttpSession sesion = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
             sesion.setAttribute("usuario", usuario);
             return "/views/index.xhtml?faces=redirect=true";
         } else {
@@ -59,12 +59,13 @@ public class login implements Serializable {
             return null;
         }
     }
-    
-    public String cerrarSesion(){
-    FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-    return "/login.xhtml?faces=redirect=true";
-    }
-    
+
     public login() {
     }
+
+    public String cerrarSesion() {
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        return "/login.xhtml?faces=redirect=true";
+    }
+
 }

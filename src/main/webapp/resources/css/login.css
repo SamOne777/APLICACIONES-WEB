@@ -10,7 +10,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 /* Estilos generales */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-image: url('../resources/images/fondo.jpg');
+    background-image: url('../images/fondo.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;

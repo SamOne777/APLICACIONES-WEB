@@ -23,7 +23,7 @@ public class Filtro implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        // throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
@@ -35,26 +35,34 @@ public class Filtro implements Filter {
         String rutaSolicitud = solicitud.getRequestURI();
         String raiz = solicitud.getContextPath();
 
-        respuesta.setHeader("Cache-Control", "sin caché, sin almacenamiento, debe revalidar");
+        respuesta.setHeader("Cache-Control", "no-caché, no-store, must-revalidate");
         respuesta.setHeader("Pragma", "sin caché");
-        respuesta.setDateHeader("Expira", 0);
+        respuesta.setDateHeader("Expires", 0);
         //Validaciones
         //1. Sesion Valida
         boolean validarSesion = ((sesion != null) && (sesion.getAttribute("usuario") != null));
         //2. Ruta de  login
         boolean validarRutaLogin = ((rutaSolicitud.equals(raiz + "/")) || (rutaSolicitud.equals(raiz + "/login.xhtml")));
         //3. Cargue contenido estatico
-        boolean validarContenido = rutaSolicitud.contains("/resources/");
+        boolean validarContenido
+                = rutaSolicitud.contains("/resources/")
+                || rutaSolicitud.contains("/javax.faces.resource/")
+                || rutaSolicitud.endsWith(".css")
+                || rutaSolicitud.endsWith(".js")
+                || rutaSolicitud.endsWith(".png")
+                || rutaSolicitud.endsWith(".jpg");
         if (validarSesion || validarRutaLogin || validarContenido) {
             chain.doFilter(request, response);
         } else {
             respuesta.sendRedirect(raiz);
+            
+            
         }
     }
 
     @Override
     public void destroy() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        // throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }

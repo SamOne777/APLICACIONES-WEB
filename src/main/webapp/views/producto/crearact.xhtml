@@ -1,14 +1,50 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
 
         <ui:composition template="./../newTemplate.xhtml">
 
             <ui:define name="content">
-                content
+
+                <f:view>
+
+
+                    <h:form>
+                        <h1><h:outputText value="Create/Edit"/></h1>
+                        <h:panelGrid columns="2">
+                            <h:outputLabel value="IdProducto:" for="idProducto" />
+                            <h:inputText id="idProducto" value="#{productController.pro.idProducto}" title="IdProducto" required="true" requiredMessage="The IdProducto field is required."/>
+                            <h:outputLabel value="CodigoProducto:" for="codigoProducto" />
+                            <h:inputText id="codigoProducto" value="#{productController.pro.codigoProducto}" title="CodigoProducto" required="true" requiredMessage="The CodigoProducto field is required."/>
+                            <h:outputLabel value="NombreProducto:" for="nombreProducto" />
+                            <h:inputText id="nombreProducto" value="#{productController.pro.nombreProducto}" title="NombreProducto" required="true" requiredMessage="The NombreProducto field is required."/>
+                            <h:outputLabel value="StockProduccto:" for="stockProduccto" />
+                            <h:inputText id="stockProduccto" value="#{productController.pro.stockProduccto}" title="StockProduccto" required="true" requiredMessage="The StockProduccto field is required."/>
+                            <h:outputLabel value="ValorProducto:" for="valorProducto" />
+                            <h:inputText id="valorProducto" value="#{productController.pro.valorProducto}" title="ValorProducto" required="true" requiredMessage="The ValorProducto field is required."/>
+                            <h:outputLabel value="ImagenProducto:" for="imagenProducto" />
+                            <h:inputTextarea rows="4" cols="30" id="imagenProducto" value="#{productController.pro.imagenProducto}" title="ImagenProducto" required="true" requiredMessage="The ImagenProducto field is required."/>
+
+                            <h:outputLabel value="EstadoProducto:" for="estadoProducto" />
+                            <h:selectOneMenu id="estadoProducto" value="#{productController.pro.estadoProducto}" required="true">
+                                <f:selectItems value="#{productController.listaEstados}" />
+                            </h:selectOneMenu>
+
+                            <h:outputLabel value="CategoriaProducto:" for="categoriaProducto" />
+                            <h:selectOneMenu id="categoriaProducto" value="#{productController.pro.categoriaProducto}" required="true">
+                                <f:selectItems value="#{productController.listaCategoria}" />
+                            </h:selectOneMenu>
+                        </h:panelGrid>
+                        <h:commandButton value="Insertar" action="#{productController.crearP2()}" />
+                    </h:form>
+                </f:view>
+
+
             </ui:define>
 
         </ui:composition>

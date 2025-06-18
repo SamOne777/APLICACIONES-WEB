@@ -10,6 +10,8 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -38,8 +40,18 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Producto.findByNombreProducto", query = "SELECT p FROM Producto p WHERE p.nombreProducto = :nombreProducto"),
     @NamedQuery(name = "Producto.findByStockProduccto", query = "SELECT p FROM Producto p WHERE p.stockProduccto = :stockProduccto"),
     @NamedQuery(name = "Producto.findByValorProducto", query = "SELECT p FROM Producto p WHERE p.valorProducto = :valorProducto"),
-    @NamedQuery(name = "Producto.findByEstadoProducto", query = "SELECT p FROM Producto p WHERE p.estadoProducto = :estadoProducto")})
+    @NamedQuery(name = "Producto.findByEstadoProducto", query = "SELECT p FROM Producto p WHERE p.estadoProducto = :estadoProducto"),
+    @NamedQuery(name = "Producto.findByCategoriaProducto", query = "SELECT p FROM Producto p WHERE p.categoriaProducto = :categoriaProducto"),
+ @NamedQuery(name = "Producto.findCategoriasUnicas", 
+        query = "SELECT DISTINCT p.categoriaProducto FROM Producto p"),
+    @NamedQuery(name = "Producto.findEstadosUnicos", 
+        query = "SELECT DISTINCT p.estadoProducto FROM Producto p WHERE p.estadoProducto IS NOT NULL")
+})
 public class Producto implements Serializable {
+
+    public enum Categoria {
+        PANES, BEBIDAS, TORTAS, CHOCOLATES, SANDWICHES, CAFE, HELADOS, POSTRES, OTROS
+    }
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -74,6 +86,9 @@ public class Producto implements Serializable {
     @Size(max = 8)
     @Column(name = "ESTADO_PRODUCTO")
     private String estadoProducto;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "categoria_producto")
+    private Categoria categoriaProducto = Categoria.OTROS;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "productoIDPRODUCTO", fetch = FetchType.LAZY)
     private List<Combo> comboList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "productoIDPRODUCTO", fetch = FetchType.LAZY)
@@ -86,13 +101,14 @@ public class Producto implements Serializable {
         this.idProducto = idProducto;
     }
 
-    public Producto(Integer idProducto, String codigoProducto, String nombreProducto, long stockProduccto, String valorProducto, byte[] imagenProducto) {
+    public Producto(Integer idProducto, String codigoProducto, String nombreProducto, long stockProduccto, String valorProducto, byte[] imagenProducto, Categoria categoriaProducto) {
         this.idProducto = idProducto;
         this.codigoProducto = codigoProducto;
         this.nombreProducto = nombreProducto;
         this.stockProduccto = stockProduccto;
         this.valorProducto = valorProducto;
         this.imagenProducto = imagenProducto;
+        this.categoriaProducto = categoriaProducto;
     }
 
     public Integer getIdProducto() {
@@ -151,6 +167,14 @@ public class Producto implements Serializable {
         this.estadoProducto = estadoProducto;
     }
 
+    public Categoria getCategoriaProducto() {
+        return categoriaProducto;
+    }
+
+    public void setCategoriaProducto(Categoria categoriaProducto) {
+        this.categoriaProducto = categoriaProducto;
+    }
+
     @XmlTransient
     public List<Combo> getComboList() {
         return comboList;
@@ -178,7 +202,6 @@ public class Producto implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Producto)) {
             return false;
         }
@@ -193,5 +216,4 @@ public class Producto implements Serializable {
     public String toString() {
         return "com.mycompany.project2.entities.Producto[ idProducto=" + idProducto + " ]";
     }
-    
 }

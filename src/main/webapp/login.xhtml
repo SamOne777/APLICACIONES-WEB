@@ -3,11 +3,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Inicio de Sesión</title>
+        <link href="resources/css/login.css" rel="stylesheet" type="text/css"/>
     </h:head>
-    <link href="resources/css/login.css" rel="stylesheet" type="text/css"/>
     <h:body>
-        <h1>Inicio de Sesion</h1>
+        <h1>Inicio de Sesión</h1>
         <h:form>
             <h:panelGrid columns="3">
                 <h:outputLabel value="Usuario" for="iTextUsuario"/>
@@ -16,7 +16,7 @@
                 
                 <h:outputLabel value="Contraseña" for="iTextContrasenna"/>
                 <h:inputSecret id="iTextContrasenna" value="#{login.contrasenna}" required="true" requiredMessage="El campo contraseña es obligatorio" />
-                <h:message for="iTextaContrasenna" style="color: red" />
+                <h:message for="iTextContrasenna" style="color: red" />
             </h:panelGrid>
             <h:messages globalOnly="true" style="color: red" />
             <h:commandButton value="Iniciar Sesion" action="#{login.iniciarSesion()}"/>          

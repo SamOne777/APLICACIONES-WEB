@@ -9,8 +9,12 @@ import com.mycompany.project2.services.ProductoFacadeLocal;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 
 /**
  *
@@ -20,9 +24,12 @@ import javax.ejb.EJB;
 @ViewScoped
 public class ProductController implements Serializable {
 
-   private Producto pro = new Producto();
-@EJB
-private ProductoFacadeLocal pfl; //Objecto para consultar datos
+    private Producto pro = new Producto();
+    private List<SelectItem> listaCategoria;
+    private List<SelectItem> listaEstados;
+
+    @EJB
+    private ProductoFacadeLocal pfl;
 
     public Producto getPro() {
         return pro;
@@ -31,12 +38,90 @@ private ProductoFacadeLocal pfl; //Objecto para consultar datos
     public void setPro(Producto pro) {
         this.pro = pro;
     }
-   
-   public List<Producto> obtenerProducto(){   //Metodo que retorna todos los registros
-   return this.pfl.findAll();
-   }
-    
-    public ProductController() {
+
+    public List<Producto> obtenerProducto() {
+        return this.pfl.findAll();
+    }
+
+    public List<SelectItem> getListaCategoria() {
+        try {
+            if (listaCategoria == null) {
+                listaCategoria = new ArrayList<>();
+                // Obtener categorías únicas de la base de datos
+                List<String> categoriasBD = pfl.findCategoriasUnicas();
+
+                if (categoriasBD != null && !categoriasBD.isEmpty()) {
+                    for (String categoriaStr : categoriasBD) {
+                        listaCategoria.add(new SelectItem(categoriaStr, categoriaStr));
+                    }
+                } else {
+                    // Si no hay categorías en BD, cargar todas las del enum
+                    for (Producto.Categoria cat : Producto.Categoria.values()) {
+                        listaCategoria.add(new SelectItem(cat.name(), cat.name()));
+                    }
+                }
+            }
+            return listaCategoria;
+        } catch (Exception e) {
+            // Log de error (opcional, recomendado para depuración)
+            System.err.println("Error al cargar categorías: " + e.getMessage());
+            e.printStackTrace();
+
+            // Retornar valores por defecto (categorías del enum) en caso de error
+            listaCategoria = new ArrayList<>();
+            for (Producto.Categoria cat : Producto.Categoria.values()) {
+                listaCategoria.add(new SelectItem(cat.name(), cat.name()));
+            }
+            return listaCategoria;
+        }
+    }
+
+    public List<SelectItem> getListaEstados() {
+        try {
+            if (listaEstados == null) {
+                listaEstados = new ArrayList<>();
+                // Obtener estados únicos de la base de datos
+                List<String> estadosBD = pfl.findEstadosUnicos();
+
+                if (estadosBD != null && !estadosBD.isEmpty()) {
+                    for (String estadoStr : estadosBD) {
+                        listaEstados.add(new SelectItem(estadoStr, estadoStr));
+                    }
+                } else {
+                    // Valores por defecto si no hay en BD
+                    listaEstados.add(new SelectItem("Activo", "Activo"));
+                    listaEstados.add(new SelectItem("Inactivo", "Inactivo"));
+                }
+            }
+            return listaEstados;
+        } catch (Exception e) {
+            // Log de error (opcional, recomendado para depuración)
+            System.err.println("Error al cargar estados: " + e.getMessage());
+            e.printStackTrace();
+
+            // Retornar valores por defecto en caso de error
+            listaEstados = new ArrayList<>();
+            listaEstados.add(new SelectItem("Activo", "Activo"));
+            listaEstados.add(new SelectItem("Inactivo", "Inactivo"));
+            return listaEstados;
+        }
     }
     
+    public String crearP1(){
+    this.pro = new Producto();
+    return "/views/producto/crearact.xhtml?faces=redirect=true";
+    }
+    public void crearP2(){
+    try {
+        this.pfl.create(pro);
+        FacesContext fc = FacesContext.getCurrentInstance();
+            FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Producto registrado correctamente", "MSG_INFO");
+            fc.addMessage(null, fm);
+            this.pro = new Producto();
+    } catch (Exception e){
+        FacesContext fc = FacesContext.getCurrentInstance();
+            FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "No se realizo registro", "MSG_INFO");
+            fc.addMessage(null, fm);
+    }
+    }
 }

@@ -5,6 +5,7 @@
 package com.mycompany.project2.services;
 
 import com.mycompany.project2.entities.Producto;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,5 +28,19 @@ public class ProductoFacade extends AbstractFacade<Producto> implements Producto
     public ProductoFacade() {
         super(Producto.class);
     }
-    
+
+    @Override
+    public List<String> findCategoriasUnicas() {
+        return em.createQuery(
+            "SELECT DISTINCT p.categoriaProducto FROM Producto p", String.class)
+            .getResultList();
+    }
+
+    @Override
+    public List<String> findEstadosUnicos() {
+        return em.createQuery(
+            "SELECT DISTINCT p.estadoProducto FROM Producto p WHERE p.estadoProducto IS NOT NULL", String.class)
+            .getResultList();
+    }
 }
+
