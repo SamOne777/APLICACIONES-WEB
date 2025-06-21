@@ -7,11 +7,11 @@ package com.mycompany.project2.controller;
 import com.mycompany.project2.entities.Producto;
 import com.mycompany.project2.services.ProductoFacadeLocal;
 import javax.inject.Named;
-import javax.faces.view.ViewScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
@@ -21,7 +21,7 @@ import javax.faces.model.SelectItem;
  * @author user
  */
 @Named(value = "productController")
-@ViewScoped
+@SessionScoped
 public class ProductController implements Serializable {
 
     private Producto pro = new Producto();
@@ -106,22 +106,40 @@ public class ProductController implements Serializable {
             return listaEstados;
         }
     }
-    
-    public String crearP1(){
-    this.pro = new Producto();
-    return "/views/producto/crearact.xhtml?faces=redirect=true";
+
+    public String crearProductoP1() {
+        this.pro = new Producto();
+        return "/views/producto/crearact.xhtml?faces=redirect=true";
     }
-    public void crearP2(){
-    try {
-        this.pfl.create(pro);
-        FacesContext fc = FacesContext.getCurrentInstance();
+
+    public void crearProductoP2() {
+        try {
+            this.pfl.create(pro);
+            FacesContext fc = FacesContext.getCurrentInstance();
             FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Producto registrado correctamente", "MSG_INFO");
             fc.addMessage(null, fm);
             this.pro = new Producto();
-    } catch (Exception e){
-        FacesContext fc = FacesContext.getCurrentInstance();
+        } catch (Exception e) {
+            FacesContext fc = FacesContext.getCurrentInstance();
             FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "No se realizo registro", "MSG_INFO");
             fc.addMessage(null, fm);
+        }
     }
+    
+    public String editarProductoP1(Producto pro2) {
+        this.pro = pro2;
+        return "/views/producto/crearact.xhtml?faces=redirect=true";
+    }
+    
+    public void  editarProductoP2(){
+    try {
+    this.pfl.edit(pro);
+    FacesContext fc = FacesContext.getCurrentInstance();
+            FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Producto editado correctamente", "MSG_INFO");
+            fc.addMessage(null, fm);
+            
+    }catch (Exception e) {
+    }
+        
     }
 }
