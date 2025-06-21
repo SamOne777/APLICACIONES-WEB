@@ -15,12 +15,12 @@
 
 
                     <h:form>
-                        <h1><h:outputText value="Create/Edit"/></h1>
+                        <h1><h:outputText value="Registar Producto  / Editar Producto"/></h1>
                         <h:panelGrid columns="2">
                             <h:outputLabel value="IdProducto:" for="idProducto" />
-                            <h:inputText id="idProducto" value="#{productController.pro.idProducto}" title="IdProducto" required="true" requiredMessage="The IdProducto field is required."/>
+                            <h:inputText id="idProducto" value="#{productController.pro.idProducto}" title="IdProducto" required="true" requiredMessage="The IdProducto field is required." disabled="#{productController.pro.idProducto != null}"/>
                             <h:outputLabel value="CodigoProducto:" for="codigoProducto" />
-                            <h:inputText id="codigoProducto" value="#{productController.pro.codigoProducto}" title="CodigoProducto" required="true" requiredMessage="The CodigoProducto field is required."/>
+                            <h:inputText id="codigoProducto" value="#{productController.pro.codigoProducto}" title="CodigoProducto" required="true" requiredMessage="The CodigoProducto field is required." disabled="#{productController.pro.idProducto != null}"/>
                             <h:outputLabel value="NombreProducto:" for="nombreProducto" />
                             <h:inputText id="nombreProducto" value="#{productController.pro.nombreProducto}" title="NombreProducto" required="true" requiredMessage="The NombreProducto field is required."/>
                             <h:outputLabel value="StockProduccto:" for="stockProduccto" />
@@ -40,7 +40,10 @@
                                 <f:selectItems value="#{productController.listaCategoria}" />
                             </h:selectOneMenu>
                         </h:panelGrid>
-                        <h:commandButton value="Insertar" action="#{productController.crearP2()}" />
+                        <h:messages id="mensajes" globalOnly="true" infoStyle="color: green" errorStyle="color: red" />
+                        <h:commandButton value="Registar Producto" action="#{productController.crearProductoP2()}" rendered="#{productController.pro.idProducto == null}"/>
+                        <h:commandButton value="Editar Producto" action="#{productController.editarProductoP2()}" rendered="#{productController.pro.idProducto != null}"/>
+
                     </h:form>
                 </f:view>
 
