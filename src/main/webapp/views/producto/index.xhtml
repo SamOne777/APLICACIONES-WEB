@@ -14,7 +14,7 @@
                 <table id="t-all" class="jsf-data-table display nowrap" width="100%">
                     <thead>
                         <tr>
-                            <th>ID PRODUCTO</th>
+                            <!--<th>ID PRODUCTO</th> -->
                             <th>CODIGO PRODUCTO</th>
                             <th>NOMBRE PRODUCTO</th>
                             <th>STOCK PRODUCTO</th>
@@ -27,7 +27,7 @@
                     <tbody>
                         <ui:repeat value="#{productController.obtenerProducto()}" var="item">
                             <tr>
-                                <td>#{item.idProducto}</td>
+                                <!--<td>#{item.idProducto}</td>-->
                                 <td>#{item.codigoProducto}</td>
                                 <td>#{item.nombreProducto}</td>
                                 <td>#{item.stockProduccto}</td>
@@ -37,7 +37,7 @@
                                 <td>
                                     <h:form>
                                         <h:commandButton value="Editar" action="#{productController.editarProductoP1(item)}"/>
-                                        <h:commandButton value="Eliminar" onclick="return confirm('¿Desea eliminar el registro?')"/>
+                                        <h:commandButton value="Eliminar" onclick="return confirm('¿Desea eliminar el registro?')" action="#{productController.eliminarProducto(item)}"/>
                                     </h:form>                             
                                 </td>
                             </tr>

@@ -79,7 +79,7 @@ public class Producto implements Serializable {
     @Column(name = "VALOR_PRODUCTO")
     private String valorProducto;
     @Basic(optional = false)
-    @NotNull
+    /*@NotNull*/
     @Lob
     @Column(name = "IMAGEN_PRODUCTO")
     private byte[] imagenProducto;

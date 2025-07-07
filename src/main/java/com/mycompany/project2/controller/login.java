@@ -2,33 +2,45 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSF/JSFManagedBean.java to edit this template
  */
+
 package com.mycompany.project2.controller;
 
 import com.mycompany.project2.entities.Usuario;
+import com.mycompany.project2.entities.Rol;
 import com.mycompany.project2.services.UsuarioFacadeLocal;
+import com.mycompany.project2.services.RolFacadeLocal;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpSession;
 
-
-/**
- *
- * @author user
- */
 @Named(value = "login")
 @SessionScoped
 public class login implements Serializable {
-
+    private static final Logger LOGGER = Logger.getLogger(login.class.getName());
+    
     private String usuario;
     private String contrasenna;
-    private Usuario user = new Usuario();
+    private Integer tipoUsuario;
+    private Usuario usuarioLogueado;
+    
     @EJB
-    private UsuarioFacadeLocal ufl;
+    private UsuarioFacadeLocal usuarioFacade;
+    
+    @EJB
+    private RolFacadeLocal rolFacade;
+    
+    private List<SelectItem> listaRoles;
 
+    // Getters y Setters
     public String getUsuario() {
         return usuario;
     }
@@ -45,27 +57,110 @@ public class login implements Serializable {
         this.contrasenna = contrasenna;
     }
 
+    public Integer getTipoUsuario() {
+        return tipoUsuario;
+    }
+
+    public void setTipoUsuario(Integer tipoUsuario) {
+        this.tipoUsuario = tipoUsuario;
+    }
+
+    public Usuario getUsuarioLogueado() {
+        return usuarioLogueado;
+    }
+    
+    public List<SelectItem> getListaRoles() {
+        if (listaRoles == null) {
+            listaRoles = new ArrayList<>();
+            try {
+                for (Rol rol : rolFacade.findAll()) {
+                    listaRoles.add(new SelectItem(rol.getIdRol(), rol.getNombreRol()));
+                }
+            } catch (Exception e) {
+                LOGGER.log(Level.SEVERE, "Error al cargar roles", e);
+            }
+        }
+        return listaRoles;
+    }
+
     public String iniciarSesion() {
-        //  if (usuario.equals("admin") && contrasenna.equals("admin123")) {
-        user = this.ufl.iniciarSesion(usuario, contrasenna);
-        if (user.getIdUsuario() != null) {
-            HttpSession sesion = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-            sesion.setAttribute("usuario", usuario);
-            return "/views/index.xhtml?faces=redirect=true";
-        } else {
-            FacesContext fc = FacesContext.getCurrentInstance();
-            FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "usuario y/o contraseña incorrectos", "MSG_ERROR");
-            fc.addMessage(null, fm);
+        try {
+            if (validarCamposLoginVacios()) {
+                return null;
+            }
+
+            usuarioLogueado = this.usuarioFacade.iniciarSesion(usuario, contrasenna);
+            
+            if (usuarioLogueado != null) {
+                return procesarUsuarioAutenticado();
+            } else {
+                mostrarMensaje("Credenciales inválidas", FacesMessage.SEVERITY_ERROR);
+                return null;
+            }
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Error en inicio de sesión", e);
+            mostrarMensaje("Error en el sistema. Intente más tarde", FacesMessage.SEVERITY_ERROR);
             return null;
         }
     }
 
-    public login() {
+    private boolean validarCamposLoginVacios() {
+        boolean camposVacios = 
+            (usuario == null || usuario.trim().isEmpty()) ||
+            (contrasenna == null || contrasenna.trim().isEmpty()) ||
+            (tipoUsuario == null);
+        
+        if (camposVacios) {
+            mostrarMensaje("Todos los campos son requeridos", FacesMessage.SEVERITY_ERROR);
+        }
+        
+        return camposVacios;
+    }
+
+    private String procesarUsuarioAutenticado() {
+        if (!"Activo".equals(usuarioLogueado.getEstadoUsuario())) {
+            mostrarMensaje("Usuario inactivo. Contacte al administrador", FacesMessage.SEVERITY_ERROR);
+            return null;
+        }
+
+        if (!usuarioLogueado.getRolIDROL().getIdRol().equals(tipoUsuario)) {
+            mostrarMensaje("El rol seleccionado no coincide con sus credenciales", FacesMessage.SEVERITY_ERROR);
+            return null;
+        }
+
+        guardarUsuarioEnSesion();
+        return redirigirSegunRol();
+    }
+
+    private void guardarUsuarioEnSesion() {
+        FacesContext.getCurrentInstance().getExternalContext()
+            .getSessionMap().put("usuario", usuarioLogueado);
+        this.contrasenna = null; // Limpiar contraseña en memoria
+    }
+
+    private String redirigirSegunRol() {
+        String rol = usuarioLogueado.getRolIDROL().getNombreRol();
+        switch(rol) {
+            case "Administrador":
+                return "/views/index.xhtml?faces-redirect=true";
+            case "Vendedor":
+                return "/views/ventas/index.xhtml?faces-redirect=true";
+            case "Domiciliario":
+                return "/views/domicilios/index.xhtml?faces-redirect=true";
+            case "Cliente":
+                return "/views/cliente/index.xhtml?faces-redirect=true";
+            default:
+                LOGGER.warning("Rol no reconocido: " + rol);
+                return "/views/index.xhtml?faces-redirect=true";
+        }
     }
 
     public String cerrarSesion() {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-        return "/login.xhtml?faces=redirect=true";
+        return "/login.xhtml?faces-redirect=true";
     }
 
+    private void mostrarMensaje(String mensaje, FacesMessage.Severity severidad) {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(severidad, mensaje, null));
+    }
 }

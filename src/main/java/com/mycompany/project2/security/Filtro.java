@@ -41,8 +41,10 @@ public class Filtro implements Filter {
         //Validaciones
         //1. Sesion Valida
         boolean validarSesion = ((sesion != null) && (sesion.getAttribute("usuario") != null));
-        //2. Ruta de  login
-        boolean validarRutaLogin = ((rutaSolicitud.equals(raiz + "/")) || (rutaSolicitud.equals(raiz + "/login.xhtml")));
+        //2. Ruta de login y registro
+        boolean validarRutaLogin = ((rutaSolicitud.equals(raiz + "/")) || 
+                                 (rutaSolicitud.equals(raiz + "/login.xhtml")) ||
+                                 (rutaSolicitud.equals(raiz + "/views/registro.xhtml")));
         //3. Cargue contenido estatico
         boolean validarContenido
                 = rutaSolicitud.contains("/resources/")
@@ -51,12 +53,11 @@ public class Filtro implements Filter {
                 || rutaSolicitud.endsWith(".js")
                 || rutaSolicitud.endsWith(".png")
                 || rutaSolicitud.endsWith(".jpg");
+
         if (validarSesion || validarRutaLogin || validarContenido) {
             chain.doFilter(request, response);
         } else {
             respuesta.sendRedirect(raiz);
-            
-            
         }
     }
 
@@ -64,5 +65,4 @@ public class Filtro implements Filter {
     public void destroy() {
         // throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
 }

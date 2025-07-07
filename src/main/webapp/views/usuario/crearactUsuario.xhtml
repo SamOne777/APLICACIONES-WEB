@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="./../newTemplate.xhtml">
+            <ui:define name="content">
+                <f:view>
+                    <h:form id="formUsuario">
+                        <h1>
+                            <h:outputText value="#{userController.user.idUsuario == null ? 'Registrar Usuario' : 'Editar Usuario'}" />
+                        </h1>
+
+                        <h:panelGrid columns="3" style="width: 100%; margin-bottom: 20px;">
+                            <!-- Campos del formulario -->
+                            <h:outputLabel value="Tipo Documento:" for="tipoDocumento" style="font-weight: bold;"/>
+                            <h:selectOneMenu id="tipoDocumento" value="#{userController.user.tipoDocumentoUsuario}" 
+                                             required="true" requiredMessage="Seleccione el tipo de documento">
+                                <f:selectItem itemLabel="Seleccione..." itemValue=""/>
+                                <f:selectItem itemValue="CC" itemLabel="Cédula de Ciudadanía"/>
+                                <f:selectItem itemValue="TI" itemLabel="Tarjeta de Identidad"/>
+                                <f:selectItem itemValue="CE" itemLabel="Cédula de Extranjería"/>
+                            </h:selectOneMenu>
+                            <h:message for="tipoDocumento" style="color: red;"/>
+
+                            <h:outputLabel value="Número Documento:" for="numeroDocumento" style="font-weight: bold;"/>
+                            <h:inputText id="numeroDocumento" value="#{userController.user.numeroDocumento}" 
+                                         required="true" requiredMessage="Campo obligatorio" 
+                                         disabled="#{userController.user.idUsuario != null}"
+                                         maxlength="15" style="width: 200px;"/>
+                            <h:message for="numeroDocumento" style="color: red;"/>
+
+                            <h:outputLabel value="Nombres:" for="nombreUsuario" style="font-weight: bold;"/>
+                            <h:inputText id="nombreUsuario" value="#{userController.user.nombreUsuario}" 
+                                         required="true" requiredMessage="Campo obligatorio"  disabled="#{userController.user.nombreUsuario != null}"
+                                         maxlength="45" style="width: 200px;"/>
+                            <h:message for="nombreUsuario" style="color: red;"/>
+
+                            <h:outputLabel value="Apellidos:" for="apellidoUsuario" style="font-weight: bold;"/>
+                            <h:inputText id="apellidoUsuario" value="#{userController.user.apellidoUsuario}" 
+                                         required="true" requiredMessage="Campo obligatorio" disabled="#{userController.user.apellidoUsuario != null}"
+                                         maxlength="45" style="width: 200px;"/>
+                            <h:message for="apellidoUsuario" style="color: red;"/>
+
+                            <h:outputLabel value="Teléfono:" for="telUsuario" style="font-weight: bold;"/>
+                            <h:inputText id="telUsuario" value="#{userController.user.telUsuario}" 
+                                         required="true" requiredMessage="Campo obligatorio" 
+                                         maxlength="12" style="width: 200px;"/>
+                            <h:message for="telUsuario" style="color: red;"/>
+
+                            <h:outputLabel value="Dirección:" for="direccionUsuario" style="font-weight: bold;"/>
+                            <h:inputText id="direccionUsuario" value="#{userController.user.direcccionUsuario}" 
+                                         required="true" requiredMessage="Campo obligatorio" 
+                                         maxlength="120" style="width: 300px;"/>
+                            <h:message for="direccionUsuario" style="color: red;"/>
+
+                            <h:outputLabel value="Correo:" for="correoUsuario" style="font-weight: bold;"/>
+                            <h:inputText id="correoUsuario" value="#{userController.user.correoUsuario}" 
+                                         required="true" requiredMessage="Campo obligatorio" 
+                                         maxlength="120" style="width: 300px;"/>
+                            <h:message for="correoUsuario" style="color: red;"/>
+
+                            <h:outputLabel value="Contraseña:" for="passwordUsuario" style="font-weight: bold;"/>
+                            <h:inputSecret id="passwordUsuario" value="#{userController.user.paswordUsuario}" 
+                                           required="true" requiredMessage="Campo obligatorio" disabled="#{userController.user.paswordUsuario != null}"
+                                           maxlength="120" style="width: 200px;"/>
+                            <h:message for="passwordUsuario" style="color: red;"/>
+
+                            <h:outputLabel value="Estado:" for="estadoUsuario" style="font-weight: bold;"/>
+                            <h:selectOneMenu id="estadoUsuario" value="#{userController.user.estadoUsuario}" 
+                                             required="true" requiredMessage="Seleccione el estado">
+                                <f:selectItems value="#{userController.listaEstados}" />
+                            </h:selectOneMenu>
+                            <h:message for="estadoUsuario" style="color: red;"/>
+
+                            <h:outputLabel value="Rol:" for="rolUsuario" style="font-weight: bold;"/>
+                            <h:selectOneMenu id="rolUsuario" value="#{userController.rolSeleccionado}" 
+                                             required="true" requiredMessage="Seleccione el rol">
+                                <f:selectItems value="#{userController.listaRoles}" />
+                            </h:selectOneMenu>
+                            <h:message for="rolUsuario" style="color: red;"/>
+                        </h:panelGrid>
+
+                        <h:messages id="mensajesGlobales" globalOnly="true" infoStyle="color: green; font-weight: bold;" 
+                                    errorStyle="color: red; font-weight: bold;" layout="table"/>
+
+                        <div style="margin-top: 20px;">
+                            <h:commandButton value="#{userController.user.idUsuario == null ? 'Registrar' : 'Actualizar'}" 
+                                             action="#{userController.guardarUsuario}" 
+                                             styleClass="btn btn-primary"/>
+                            <h:button value="Cancelar" outcome="/views/usuario/indexUsuario.xhtml" styleClass="btn btn-secondary" 
+                                      style="margin-left: 10px;"/>
+                        </div>
+                    </h:form>
+                </f:view>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

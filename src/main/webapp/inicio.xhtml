@@ -47,15 +47,19 @@
                     </h:column>
                     <h:column>
                         <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Categoría"/>
-                        </f:facet>
-                        <h:outputText value="#{item.categoriaProducto}"/>
-                    </h:column>
-                        <f:facet name="header">
-                            <h:outputText value="ImagenProducto"/>
-                        </f:facet>
-                        <h:outputText value="#{item.imagenProducto}"/>
+                            <f:facet name="header">
+                                <h:outputText value="Categoría"/>
+                            </f:facet>
+                            <h:outputText value="#{item.categoriaProducto}"/>
+                        </h:column>
+                        <!-- 
+<h:column>
+    <f:facet name="header">
+        <h:outputText value="ImagenProducto"/>
+    </f:facet>
+    <h:outputText value="#{item.imagenProducto}"/>
+</h:column>
+                        -->
                     </h:column>
                     <h:column>
                         <f:facet name="header">
@@ -67,7 +71,7 @@
             </h:form>
         </f:view>
 
-        
-        
+
+
     </h:body>
 </html>

@@ -97,7 +97,6 @@ public class ProductController implements Serializable {
         } catch (Exception e) {
             // Log de error (opcional, recomendado para depuración)
             System.err.println("Error al cargar estados: " + e.getMessage());
-            e.printStackTrace();
 
             // Retornar valores por defecto en caso de error
             listaEstados = new ArrayList<>();
@@ -141,5 +140,15 @@ public class ProductController implements Serializable {
     }catch (Exception e) {
     }
         
+    }
+    
+    public void eliminarProducto(Producto pro2){
+        try {
+            this.pfl.remove(pro2);
+            FacesContext fc = FacesContext.getCurrentInstance();
+            FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Producto eliminado correctamente", "MSG_INFO");
+            fc.addMessage(null, fm);
+        } catch (Exception e) {
+        }
     }
 }

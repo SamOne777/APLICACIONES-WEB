@@ -6,51 +6,79 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
-
         <ui:composition template="./../newTemplate.xhtml">
-
             <ui:define name="content">
-
                 <f:view>
+                    <h:form id="formProducto">
+                        <h1>
+                            <h:outputText value="#{productController.pro.idProducto == null ? 'Registrar Producto' : 'Editar Producto'}" />
+                        </h1>
 
+                        <h:panelGrid columns="3" style="width: 100%; margin-bottom: 20px;">
+                            <h:outputLabel value="Código Producto:" for="codigoProducto" style="font-weight: bold;"/>
+                            <h:inputText id="codigoProducto" value="#{productController.pro.codigoProducto}" 
+                                         title="CodigoProducto" required="true" 
+                                         requiredMessage="Campo obligatorio" 
+                                         disabled="#{productController.pro.idProducto != null}"
+                                         style="width: 200px;"/>
+                            <h:message for="codigoProducto" style="color: red;"/>
 
-                    <h:form>
-                        <h1><h:outputText value="Registar Producto  / Editar Producto"/></h1>
-                        <h:panelGrid columns="2">
-                            <h:outputLabel value="IdProducto:" for="idProducto" />
-                            <h:inputText id="idProducto" value="#{productController.pro.idProducto}" title="IdProducto" required="true" requiredMessage="The IdProducto field is required." disabled="#{productController.pro.idProducto != null}"/>
-                            <h:outputLabel value="CodigoProducto:" for="codigoProducto" />
-                            <h:inputText id="codigoProducto" value="#{productController.pro.codigoProducto}" title="CodigoProducto" required="true" requiredMessage="The CodigoProducto field is required." disabled="#{productController.pro.idProducto != null}"/>
-                            <h:outputLabel value="NombreProducto:" for="nombreProducto" />
-                            <h:inputText id="nombreProducto" value="#{productController.pro.nombreProducto}" title="NombreProducto" required="true" requiredMessage="The NombreProducto field is required."/>
-                            <h:outputLabel value="StockProduccto:" for="stockProduccto" />
-                            <h:inputText id="stockProduccto" value="#{productController.pro.stockProduccto}" title="StockProduccto" required="true" requiredMessage="The StockProduccto field is required."/>
-                            <h:outputLabel value="ValorProducto:" for="valorProducto" />
-                            <h:inputText id="valorProducto" value="#{productController.pro.valorProducto}" title="ValorProducto" required="true" requiredMessage="The ValorProducto field is required."/>
-                            <h:outputLabel value="ImagenProducto:" for="imagenProducto" />
-                            <h:inputTextarea rows="4" cols="30" id="imagenProducto" value="#{productController.pro.imagenProducto}" title="ImagenProducto" required="true" requiredMessage="The ImagenProducto field is required."/>
+                            <h:outputLabel value="Nombre Producto:" for="nombreProducto" style="font-weight: bold;"/>
+                            <h:inputText id="nombreProducto" value="#{productController.pro.nombreProducto}" 
+                                         title="NombreProducto" required="true" 
+                                         requiredMessage="Campo obligatorio"
+                                         style="width: 300px;"/>
+                            <h:message for="nombreProducto" style="color: red;"/>
 
-                            <h:outputLabel value="EstadoProducto:" for="estadoProducto" />
-                            <h:selectOneMenu id="estadoProducto" value="#{productController.pro.estadoProducto}" required="true">
+                            <h:outputLabel value="Stock Producto:" for="stockProduccto" style="font-weight: bold;"/>
+                            <h:inputText id="stockProduccto" value="#{productController.pro.stockProduccto}" 
+                                         title="StockProduccto" required="true" 
+                                         requiredMessage="Campo obligatorio"
+                                         style="width: 100px;"/>
+                            <h:message for="stockProduccto" style="color: red;"/>
+
+                            <h:outputLabel value="Valor Producto:" for="valorProducto" style="font-weight: bold;"/>
+                            <h:inputText id="valorProducto" value="#{productController.pro.valorProducto}" 
+                                         title="ValorProducto" required="true" 
+                                         requiredMessage="Campo obligatorio"
+                                         style="width: 150px;"/>
+                            <h:message for="valorProducto" style="color: red;"/>
+
+                            <h:outputLabel value="Estado Producto:" for="estadoProducto" style="font-weight: bold;"/>
+                            <h:selectOneMenu id="estadoProducto" value="#{productController.pro.estadoProducto}" 
+                                             required="true" requiredMessage="Seleccione el estado"
+                                             style="width: 200px;">
                                 <f:selectItems value="#{productController.listaEstados}" />
                             </h:selectOneMenu>
+                            <h:message for="estadoProducto" style="color: red;"/>
 
-                            <h:outputLabel value="CategoriaProducto:" for="categoriaProducto" />
-                            <h:selectOneMenu id="categoriaProducto" value="#{productController.pro.categoriaProducto}" required="true">
+                            <h:outputLabel value="Categoría Producto:" for="categoriaProducto" style="font-weight: bold;"/>
+                            <h:selectOneMenu id="categoriaProducto" value="#{productController.pro.categoriaProducto}" 
+                                             required="true" requiredMessage="Seleccione la categoría"
+                                             style="width: 200px;">
                                 <f:selectItems value="#{productController.listaCategoria}" />
                             </h:selectOneMenu>
+                            <h:message for="categoriaProducto" style="color: red;"/>
                         </h:panelGrid>
-                        <h:messages id="mensajes" globalOnly="true" infoStyle="color: green" errorStyle="color: red" />
-                        <h:commandButton value="Registar Producto" action="#{productController.crearProductoP2()}" rendered="#{productController.pro.idProducto == null}"/>
-                        <h:commandButton value="Editar Producto" action="#{productController.editarProductoP2()}" rendered="#{productController.pro.idProducto != null}"/>
 
+                        <h:messages id="mensajesGlobales" globalOnly="true" 
+                                    infoStyle="color: green; font-weight: bold;" 
+                                    errorStyle="color: red; font-weight: bold;" 
+                                    layout="table"/>
+
+                        <div style="margin-top: 20px;">
+                            <h:commandButton value="Registrar" action="#{productController.crearProductoP2()}" 
+                                           rendered="#{productController.pro.idProducto == null}"
+                                           styleClass="btn btn-primary"/>
+                            <h:commandButton value="Actualizar" action="#{productController.editarProductoP2()}" 
+                                           rendered="#{productController.pro.idProducto != null}"
+                                           styleClass="btn btn-primary"/>
+                            <h:button value="Cancelar" outcome="/views/producto/index.xhtml" 
+                                      styleClass="btn btn-secondary" style="margin-left: 10px;"/>
+                        </div>
                     </h:form>
                 </f:view>
-
-
             </ui:define>
-
         </ui:composition>
-
     </body>
 </html>

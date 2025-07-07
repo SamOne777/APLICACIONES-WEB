@@ -10,11 +10,11 @@
         <h:outputStylesheet name="/css/default.css"/>
         <h:outputStylesheet name="/css/cssLayout.css"/>
         <title>Sistema Desayunos Detalles</title>
-        
+
         <!-- DataTables CSS -->
         <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css"/>
         <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css"/>
-        
+
         <!-- jQuery y DataTables JS -->
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
         <script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
@@ -24,43 +24,45 @@
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
         <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
         <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
-        
+
         <ui:insert name="head"/>
     </h:head>
 
     <h:body>
-    <div id="top" class="header-container">
-        <!-- Logo y título a la izquierda -->
-        <div class="page-header">
-            <h:graphicImage value="/resources/images/logo.png" styleClass="header-logo" />
-            <h1>Sistema Desayunos Detalles</h1>
+        <div id="top" class="header-container">
+            <!-- Logo y título a la izquierda -->
+            <div class="page-header">
+                <h:graphicImage value="/resources/images/logo.png" styleClass="header-logo" />
+                <h1>Sistema Desayunos Detalles</h1>
+            </div>
+
+            <!-- Nombre de usuario (usa la versión más reciente) -->
+            <h2 class="user-info">Usuario: #{login.usuarioLogueado.nombreUsuario}</h2>
+
+            <!-- Botón de Cerrar Sesión -->
+            <h:form class="logout-form">
+                <h:commandButton value="Cerrar Sesión" action="#{login.cerrarSesion}" styleClass="logout-btn" />
+            </h:form>
         </div>
-        
-        <!-- Nombre de usuario en el centro (opcional) -->
-        <h2 class="user-info">Usuario: #{login.usuario}</h2>
-        
-        <!-- Botón de Cerrar Sesión a la derecha -->
-        <h:form class="logout-form">
-            <h:commandButton value="Cerrar Sesión" action="#{login.cerrarSesion()}" styleClass="logout-btn" />
-        </h:form>
-    </div>
-    
-    <!-- Resto del contenido (menú y cuerpo) -->
-    <div>
-        <div id="left">
-            <h:link value="Producto" outcome="/views/producto/index.xhtml"/>
-            <!-- Otros enlaces del menú -->
-            <ui:insert name="left"/>
+
+        <!-- Contenido (menú y cuerpo) -->
+        <div>
+            <div id="left">
+                <h:link value="Producto" outcome="/views/producto/index.xhtml"/> <br/>
+                <h:link value="Usuario" outcome="/views/usuario/indexUsuario.xhtml"/> <br/>
+                <h:link value="domicilio" outcome="/views/producto/index.xhtml"/> <br/>
+                <h:link value="Promocion" outcome="/views/producto/index.xhtml"/>
+                <ui:insert name="left"/>
+            </div>
+
+            <div id="content" class="left_content">
+                <ui:insert name="content">Contenido principal</ui:insert>
+            </div>
         </div>
-        
-        <div id="content" class="left_content">
-            <ui:insert name="content">Contenido principal</ui:insert>
+
+        <div id="bottom">
+            <h2>&copy; DESAYUNOS DETALLES</h2>
+            <ui:insert name="bottom"/>
         </div>
-    </div>
-    
-    <div id="bottom">
-        <h2>&copy; DESAYUNOS DETALLES</h2>
-        <ui:insert name="bottom"/>
-    </div>
-</h:body>
+    </h:body>
 </html>
