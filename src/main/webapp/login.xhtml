@@ -14,7 +14,8 @@
                 <h:panelGrid columns="3" style="width: 100%">
                     <h:outputLabel value="Tipo de Usuario" for="tipoUsuario" />
                     <h:selectOneMenu id="tipoUsuario" value="#{login.tipoUsuario}" 
-                                     required="true" >
+                                     required="true"
+                                     requiredMessage="Por favor, seleccione un tipo de usuario">
                         <f:selectItem itemLabel="Seleccione..." itemValue="#{null}"/>
                         <f:selectItems value="#{login.listaRoles}" />
                     </h:selectOneMenu>
