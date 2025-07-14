@@ -1,72 +1,90 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
+
     <h:head>
         <title>Registro de Usuario</title>
         <link href="resources/css/login.css" rel="stylesheet" type="text/css"/>
     </h:head>
+
     <h:body>
-        <div class="registro-panel">
-            <h2 class="login-title">Registro de Usuario</h2>
-            <h:form>
-                <h:panelGrid columns="3" style="width: 100%">
-                    <h:outputLabel value="Tipo de Documento:" for="tipoDocumento" />
-                    <h:selectOneMenu id="tipoDocumento" value="#{userController.user.tipoDocumentoUsuario}" required="true">
+        <div class="container">
+            <h:form id="formRegistro">
+                <h1 class="text-center">
+                    <h:outputText value="Registro de Cliente" />
+                </h1>
+
+                <h:panelGrid columns="3" style="width: 100%; margin-bottom: 20px;">
+                    <!-- Campos del formulario -->
+                    <h:outputLabel value="Tipo Documento:" for="tipoDocumento" style="font-weight: bold;"/>
+                    <h:selectOneMenu id="tipoDocumento" value="#{userController.user.tipoDocumentoUsuario}" 
+                                     required="true" requiredMessage="Seleccione el tipo de documento">
+                        <f:selectItem itemLabel="Seleccione..." itemValue=""/>
                         <f:selectItem itemValue="CC" itemLabel="Cédula de Ciudadanía"/>
                         <f:selectItem itemValue="TI" itemLabel="Tarjeta de Identidad"/>
                         <f:selectItem itemValue="CE" itemLabel="Cédula de Extranjería"/>
                     </h:selectOneMenu>
-                    <h:message for="tipoDocumento" />
-                    
-                    <h:outputLabel value="Número Documento:" for="numeroDocumento" />
+                    <h:message for="tipoDocumento" style="color: red;"/>
+
+                    <h:outputLabel value="Número Documento:" for="numeroDocumento" style="font-weight: bold;"/>
                     <h:inputText id="numeroDocumento" value="#{userController.user.numeroDocumento}" 
-                                required="true" requiredMessage="Campo obligatorio"/>
-                    <h:message for="numeroDocumento" />
-                    
-                    <h:outputLabel value="Nombres:" for="nombreUsuario" />
+                                 required="true" requiredMessage="Campo obligatorio" 
+                                 maxlength="15" style="width: 200px;"/>
+                    <h:message for="numeroDocumento" style="color: red;"/>
+
+                    <h:outputLabel value="Nombres:" for="nombreUsuario" style="font-weight: bold;"/>
                     <h:inputText id="nombreUsuario" value="#{userController.user.nombreUsuario}" 
-                                required="true" requiredMessage="Campo obligatorio"/>
-                    <h:message for="nombreUsuario" />
-                    
-                    <h:outputLabel value="Apellidos:" for="apellidoUsuario" />
+                                 required="true" requiredMessage="Campo obligatorio"
+                                 maxlength="45" style="width: 200px;"/>
+                    <h:message for="nombreUsuario" style="color: red;"/>
+
+                    <h:outputLabel value="Apellidos:" for="apellidoUsuario" style="font-weight: bold;"/>
                     <h:inputText id="apellidoUsuario" value="#{userController.user.apellidoUsuario}" 
-                                required="true" requiredMessage="Campo obligatorio"/>
-                    <h:message for="apellidoUsuario" />
-                    
-                    <h:outputLabel value="Teléfono:" for="telUsuario" />
+                                 required="true" requiredMessage="Campo obligatorio"
+                                 maxlength="45" style="width: 200px;"/>
+                    <h:message for="apellidoUsuario" style="color: red;"/>
+
+                    <h:outputLabel value="Teléfono:" for="telUsuario" style="font-weight: bold;"/>
                     <h:inputText id="telUsuario" value="#{userController.user.telUsuario}" 
-                                required="true" requiredMessage="Campo obligatorio"/>
-                    <h:message for="telUsuario" />
-                    
-                    <h:outputLabel value="Dirección:" for="direccionUsuario" />
+                                 required="true" requiredMessage="Campo obligatorio" 
+                                 maxlength="12" style="width: 200px;"/>
+                    <h:message for="telUsuario" style="color: red;"/>
+
+                    <h:outputLabel value="Dirección:" for="direccionUsuario" style="font-weight: bold;"/>
                     <h:inputText id="direccionUsuario" value="#{userController.user.direcccionUsuario}" 
-                                required="true" requiredMessage="Campo obligatorio"/>
-                    <h:message for="direccionUsuario" />
-                    
-                    <h:outputLabel value="Correo:" for="correoUsuario" />
+                                 required="true" requiredMessage="Campo obligatorio" 
+                                 maxlength="120" style="width: 300px;"/>
+                    <h:message for="direccionUsuario" style="color: red;"/>
+
+                    <h:outputLabel value="Correo:" for="correoUsuario" style="font-weight: bold;"/>
                     <h:inputText id="correoUsuario" value="#{userController.user.correoUsuario}" 
-                                required="true" requiredMessage="Campo obligatorio"/>
-                    <h:message for="correoUsuario" />
-                    
-                    <h:outputLabel value="Contraseña:" for="passwordUsuario" />
+                                 required="true" requiredMessage="Campo obligatorio" 
+                                 maxlength="120" style="width: 300px;"/>
+                    <h:message for="correoUsuario" style="color: red;"/>
+
+                    <h:outputLabel value="Contraseña:" for="passwordUsuario" style="font-weight: bold;"/>
                     <h:inputSecret id="passwordUsuario" value="#{userController.user.paswordUsuario}" 
-                                  required="true" requiredMessage="Campo obligatorio"/>
-                    <h:message for="passwordUsuario" />
-                    
-                    <h:outputLabel value="Tipo de Usuario:" for="rolUsuario" />
-                    <h:selectOneMenu id="rolUsuario" value="#{userController.user.rolIDROL}" required="true">
-                        <f:selectItems value="#{userController.listaRoles}" var="rol" 
-                                     itemLabel="#{rol.nombreRol}" itemValue="#{rol}"/>
-                    </h:selectOneMenu>
-                    <h:message for="rolUsuario" />
+                                   required="true" requiredMessage="Campo obligatorio"
+                                   maxlength="120" style="width: 200px;"/>
+                    <h:message for="passwordUsuario" style="color: red;"/>
                 </h:panelGrid>
-                
-                <h:commandButton value="Registrarse" action="#{userController.registrarUsuario()}" />
-                <h:button value="Volver a Login" outcome="/login.xhtml" />
-                
-                <h:messages globalOnly="true" />
+
+                <h:messages id="mensajesGlobales" globalOnly="true" 
+                            infoStyle="color: green; font-weight: bold;" 
+                            errorStyle="color: red; font-weight: bold;" 
+                            layout="table"/>
+
+                <div class="button-container">
+                    <h:commandButton value="Registrarse" 
+                                     action="#{userController.registrarCliente}" 
+                                     styleClass="btn btn-register"/>
+
+                    <h:button value="Cancelar" outcome="/inicio.xhtml" 
+          styleClass="btn-cancel"/>
+                </div>
             </h:form>
         </div>
     </h:body>

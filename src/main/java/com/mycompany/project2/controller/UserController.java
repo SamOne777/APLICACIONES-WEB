@@ -153,6 +153,50 @@ public class UserController implements Serializable {
         }
         return true;
     }
+    
+     public String registrarCliente() {
+        try {
+            // Validar campos obligatorios
+            if (!validarUsuario()) {
+                return null;
+            }
+            
+            // Verificar si el usuario ya existe
+            if (usuarioFacade.findByDocumento(user.getNumeroDocumento()) != null) {
+                mostrarMensaje("El número de documento ya está registrado", FacesMessage.SEVERITY_ERROR);
+                return null;
+            }
+            
+            if (usuarioFacade.existeCorreo(user.getCorreoUsuario())) {
+                mostrarMensaje("El correo electrónico ya está registrado", FacesMessage.SEVERITY_ERROR);
+                return null;
+            }
+            
+            // Asignar rol Cliente (ID 4) por defecto
+            this.rolSeleccionado = 4;
+            Rol rolCliente = rolFacade.find(rolSeleccionado);
+            user.setRolIDROL(rolCliente);
+            
+            // Establecer estado Activo por defecto
+            user.setEstadoUsuario("Activo");
+            
+            // Guardar el usuario
+            usuarioFacade.create(user);
+            
+            // Mensaje de éxito mejorado
+        FacesContext.getCurrentInstance().addMessage(null, 
+            new FacesMessage(FacesMessage.SEVERITY_INFO,
+            "¡Registro exitoso!", 
+            "Gracias por registrarte. Ya puedes iniciar sesión con tus credenciales."));
+        
+        this.user = new Usuario();
+        return "/login.xhtml?faces-redirect=true";
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Error al registrar cliente", e);
+            mostrarMensaje("Error al registrar: " + e.getMessage(), FacesMessage.SEVERITY_ERROR);
+            return null;
+        }
+    }
 
     private void mostrarMensaje(String mensaje, FacesMessage.Severity severidad) {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(severidad, mensaje, null));

@@ -1,0 +1,243 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" href="#{resource['images/logo.png']}" type="image/x-icon" /> 
+        <h:outputStylesheet name="/css/Inicio.css"/>
+        <title>Desayunos y Detalles - Inicio</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" />
+    </h:head>
+    <h:body>
+        <!-- Barra de navegación mejorada -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary custom-navbar">
+    <div class="container-fluid custom-navbar-container">
+        <!-- Logo y elementos de navegación (izquierda) -->
+        <div class="d-flex align-items-center navbar-left-section">
+            <h:graphicImage value="/resources/images/logo.png" styleClass="header-logo" />
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#servicios">Servicios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#nosotros">Quiénes Somos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="catalogo.xhtml">Catálogo</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contacto.xhtml">Contacto</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Botones (derecha) -->
+        <div class="navbar-right-section">
+            <a href="login.xhtml" class="btn btn-outline-light custom-nav-btn">
+                <i class="bi bi-box-arrow-in-right"></i> Iniciar Sesión
+            </a>
+            <a href="registro.xhtml" class="btn btn-light custom-nav-btn">
+                <i class="bi bi-person-plus"></i> Registrarse
+            </a>
+            <a href="carrito_compra.xhtml" class="btn btn-light custom-nav-btn position-relative">
+                <i class="bi bi-cart"></i>
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    0
+                </span>
+            </a>
+        </div>
+    </div>
+</nav>
+
+        <!-- Secciones -->
+        <section class="hero-section">
+            <div class="container">
+                <h1 class="display-4 fw-bold mb-4">Sorprende a tus seres queridos</h1>
+                <p class="lead mb-5">Los mejores desayunos y detalles para ocasiones especiales</p>
+                <div class="d-flex justify-content-center gap-3">
+                    <a href="catalogo.xhtml" class="btn btn-primary btn-lg px-4">Ver Catálogo</a>
+                    <a href="#servicios" class="btn btn-outline-light btn-lg px-4">Nuestros Servicios</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección Servicios -->
+        <section id="servicios" class="py-5">
+            <div class="container">
+                <div class="text-center mb-5">
+                    <h2 class="fw-bold">Nuestros Servicios</h2>
+                    <p class="lead text-muted">Ofrecemos los mejores productos para tus momentos especiales</p>
+                </div>
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="card service-card shadow-sm h-100">
+                            <div class="card-body text-center p-4">
+                                <div class="feature-icon">
+                                    <i class="bi bi-cup-hot"></i>
+                                </div>
+                                <h3 class="h4">Desayunos Especiales</h3>
+                                <p class="text-muted">Deliciosos desayunos preparados con ingredientes frescos y de alta calidad.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card service-card shadow-sm h-100">
+                            <div class="card-body text-center p-4">
+                                <div class="feature-icon">
+                                    <i class="bi bi-gift"></i>
+                                </div>
+                                <h3 class="h4">Detalles Únicos</h3>
+                                <p class="text-muted">Selección de regalos y detalles cuidadosamente seleccionados.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card service-card shadow-sm h-100">
+                            <div class="card-body text-center p-4">
+                                <div class="feature-icon">
+                                    <i class="bi bi-truck"></i>
+                                </div>
+                                <h3 class="h4">Entrega a Domicilio</h3>
+                                <p class="text-muted">Servicio de entrega puntual y discreto para que tu sorpresa llegue perfecta.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección Quiénes Somos -->
+        <section id="nosotros" class="py-5 about-section">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 mb-4 mb-lg-0">
+                        <img src="img/nosotros.jpg" alt="Equipo de Desayunos y Detalles" class="img-fluid rounded shadow" />
+                    </div>
+                    <div class="col-lg-6">
+                        <h2 class="fw-bold mb-4">Quiénes Somos</h2>
+                        <p class="lead">Somos un equipo apasionado por crear momentos memorables.</p>
+                        <p>Desde 2010, nos dedicamos a hacer que tus ocasiones especiales sean aún más memorables con productos cuidadosamente seleccionados.</p>
+                        <div class="d-flex gap-3 mt-4">
+                            <div>
+                                <h3 class="h5">+10,000</h3>
+                                <p class="text-muted">Clientes satisfechos</p>
+                            </div>
+                            <div>
+                                <h3 class="h5">+5,000</h3>
+                                <p class="text-muted">Entregas realizadas</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección Destacados -->
+        <section class="py-5">
+            <div class="container">
+                <div class="text-center mb-5">
+                    <h2 class="fw-bold">Productos Destacados</h2>
+                    <p class="lead text-muted">Algunos de nuestros productos más populares</p>
+                </div>
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="card h-100 shadow-sm">
+                            <span class="badge bg-warning position-absolute top-0 end-0 m-2">Destacado</span>
+                            <img src="img/desayuno-ejemplo1.jpg" class="card-img-top" alt="Desayuno Especial" />
+                            <div class="card-body">
+                                <h3 class="h5">Desayuno Deluxe</h3>
+                                <p class="text-muted">Incluye jugo natural, café, frutas frescas y pan artesanal.</p>
+                                <p class="h5 text-primary">$120.00</p>
+                            </div>
+                            <div class="card-footer bg-white">
+                                <a href="catalogo.xhtml" class="btn btn-primary w-100">Ver en Catálogo</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card h-100 shadow-sm">
+                            <span class="badge bg-warning position-absolute top-0 end-0 m-2">Destacado</span>
+                            <img src="img/detalle-ejemplo1.jpg" class="card-img-top" alt="Detalle Especial" />
+                            <div class="card-body">
+                                <h3 class="h5">Caja de Chocolate Premium</h3>
+                                <p class="text-muted">Selección de chocolates finos con opción personalizada.</p>
+                                <p class="h5 text-primary">$95.00</p>
+                            </div>
+                            <div class="card-footer bg-white">
+                                <a href="catalogo.xhtml" class="btn btn-primary w-100">Ver en Catálogo</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card h-100 shadow-sm">
+                            <span class="badge bg-warning position-absolute top-0 end-0 m-2">Destacado</span>
+                            <img src="img/combo-ejemplo1.jpg" class="card-img-top" alt="Combo Especial" />
+                            <div class="card-body">
+                                <h3 class="h5">Combo Aniversario</h3>
+                                <p class="text-muted">Desayuno completo + botella de vino + arreglo floral.</p>
+                                <p class="h5 text-primary">$250.00</p>
+                            </div>
+                            <div class="card-footer bg-white">
+                                <a href="catalogo.xhtml" class="btn btn-primary w-100">Ver en Catálogo</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-5">
+                    <a href="catalogo.xhtml" class="btn btn-outline-primary btn-lg px-4">Ver Catálogo Completo</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pie de página -->
+        <footer class="bg-dark text-white py-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4 mb-4 mb-lg-0">
+                        <h3 class="h5">Desayunos y Detalles</h3>
+                        <p class="text-muted">Haciendo momentos especiales desde 2010.</p>
+                        <div class="d-flex gap-3">
+                            <a href="#" class="text-white"><i class="bi bi-facebook"></i></a>
+                            <a href="#" class="text-white"><i class="bi bi-instagram"></i></a>
+                            <a href="#" class="text-white"><i class="bi bi-whatsapp"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 mb-4 mb-lg-0">
+                        <h3 class="h5">Enlaces Rápidos</h3>
+                        <ul class="list-unstyled">
+                            <li><a href="index.xhtml" class="text-muted">Inicio</a></li>
+                            <li><a href="#servicios" class="text-muted">Servicios</a></li>
+                            <li><a href="#nosotros" class="text-muted">Quiénes Somos</a></li>
+                            <li><a href="catalogo.xhtml" class="text-muted">Catálogo</a></li>
+                            <li><a href="contacto.xhtml" class="text-muted">Contacto</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-4">
+                        <h3 class="h5">Contacto</h3>
+                        <ul class="list-unstyled text-muted">
+                            <li><i class="bi bi-geo-alt"></i> Av. Principal 123, Ciudad</li>
+                            <li><i class="bi bi-telephone"></i> (555) 123-4567</li>
+                            <li><i class="bi bi-envelope"></i> info@desayunosydetalles.com</li>
+                        </ul>
+                    </div>
+                </div>
+                <hr class="my-4" />
+                <div class="text-center text-muted">
+                    <p class="mb-0">© 2023 Desayunos y Detalles. Todos los derechos reservados.</p>
+                </div>
+            </div>
+        </footer>
+
+        <!-- Bootstrap JS -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    </h:body>
+</html>

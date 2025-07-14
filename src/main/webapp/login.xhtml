@@ -34,8 +34,15 @@
                     <h:message for="iTextContrasenna" />
                 </h:panelGrid>
 
-                <h:commandButton value="Iniciar Sesión" action="#{login.iniciarSesion}" />
+                <div>
+                    <h:commandButton value="Iniciar Sesión" action="#{login.iniciarSesion}" />
+                </div>
+                <div style="margin-top: 10px;">
+                    <h:button value="Volver" outcome="/inicio.xhtml" styleClass="btn-cancel" />
+                </div>
                 <h:messages globalOnly="true" />
+
+
             </h:form>
         </div>
     </h:body>

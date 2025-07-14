@@ -20,4 +20,6 @@ boolean existeCorreo(String correo);
     int count();
     Usuario iniciarSesion(String usuario, String password);
     List<Usuario> findByRol(Integer idRol);
+        Usuario findByDocumento(String numeroDocumento); // Nuevo método registro verificar documento
+
 }

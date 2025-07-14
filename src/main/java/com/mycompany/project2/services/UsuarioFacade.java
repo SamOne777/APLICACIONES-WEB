@@ -8,6 +8,7 @@ import com.mycompany.project2.entities.Usuario;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -57,4 +58,15 @@ public boolean existeCorreo(String correo) {
         return false;
     }
 }
+
+@Override
+    public Usuario findByDocumento(String numeroDocumento) {
+        try {
+            return em.createQuery("SELECT u FROM Usuario u WHERE u.numeroDocumento = :doc", Usuario.class)
+                    .setParameter("doc", numeroDocumento)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
 }

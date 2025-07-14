@@ -43,8 +43,9 @@ public class Filtro implements Filter {
         boolean validarSesion = ((sesion != null) && (sesion.getAttribute("usuario") != null));
         //2. Ruta de login y registro
         boolean validarRutaLogin = ((rutaSolicitud.equals(raiz + "/")) || 
+                (rutaSolicitud.equals(raiz + "/PaginaInicio.xhtml")) ||
                                  (rutaSolicitud.equals(raiz + "/login.xhtml")) ||
-                                 (rutaSolicitud.equals(raiz + "/views/registro.xhtml")));
+                                 (rutaSolicitud.equals(raiz + "/registro.xhtml")));
         //3. Cargue contenido estatico
         boolean validarContenido
                 = rutaSolicitud.contains("/resources/")
