@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="./../newTemplate.xhtml">
+            <ui:define name="content">
+                <f:view>
+                    <h:form id="formDomicilio">
+                        <h1>
+                            <h:outputText value="#{domicilioController.dom.idDomicilio == null ? 'Asignar Domicilio' : 'Editar Domicilio'}" />
+                        </h1>
+
+                        <h:panelGrid columns="3" style="width: 100%; margin-bottom: 20px;">
+                            <h:outputLabel value="Fecha:" for="fechaDomicilio" style="font-weight: bold;"/>
+                            <h:inputText id="fechaDomicilio" value="#{domicilioController.dom.fechaDomicilio}" 
+                                         title="Fecha" required="true" 
+                                         requiredMessage="Campo obligatorio"
+                                         style="width: 200px;" disabled="true"/>
+                            <h:message for="fechaDomicilio" style="color: red;"/>
+
+                            <h:outputLabel value="Dirección:" for="direcccionDomicilio" style="font-weight: bold;"/>
+                            <h:inputText id="direcccionDomicilio" value="#{domicilioController.dom.direcccionDomicilio}" 
+                                         title="Dirección" required="true" 
+                                         requiredMessage="Campo obligatorio"
+                                         style="width: 300px;"/>
+                            <h:message for="direcccionDomicilio" style="color: red;"/>
+
+                            <h:outputLabel value="Domiciliario:" for="domiciliario" style="font-weight: bold;"/>
+                            <h:selectOneMenu id="domiciliario" value="#{domicilioController.dom.usuarioIDUSUARIODOMICILIO}" 
+                                             required="true" requiredMessage="Seleccione un domiciliario"
+                                             style="width: 200px;">
+                                <f:selectItems value="#{domicilioController.obtenerDomiciliarios()}" 
+                                               var="domiciliario"
+                                               itemLabel="#{domiciliario.nombreUsuario} #{domiciliario.apellidoUsuario}"
+                                               itemValue="#{domiciliario}"/>
+                            </h:selectOneMenu>
+                            <h:message for="domiciliario" style="color: red;"/>
+
+                            <h:outputLabel value="Factura:" for="factura" style="font-weight: bold;"/>
+                            <h:selectOneMenu id="factura" value="#{domicilioController.dom.facturaIDFACTURA}" 
+                                             required="true" requiredMessage="Seleccione una factura"
+                                             style="width: 200px;">
+                                <f:selectItems value="#{domicilioController.obtenerFacturasDisponibles()}" 
+                                               var="factura"
+                                               itemLabel="Factura ##{factura.idFactura}"
+                                               itemValue="#{factura}"/>
+                            </h:selectOneMenu>
+                            <h:message for="factura" style="color: red;"/>
+                        </h:panelGrid>
+
+                        <h:messages id="mensajesGlobales" globalOnly="true" 
+                                    infoStyle="color: green; font-weight: bold;" 
+                                    errorStyle="color: red; font-weight: bold;" 
+                                    layout="table"/>
+
+                        <div style="margin-top: 20px;">
+                            <h:commandButton value="Asignar" action="#{domicilioController.crearDomicilioP2()}" 
+                                           rendered="#{domicilioController.dom.idDomicilio == null}"
+                                           styleClass="btn btn-primary"/>
+                            <h:commandButton value="Actualizar" action="#{domicilioController.editarDomicilioP2()}" 
+                                           rendered="#{domicilioController.dom.idDomicilio != null}"
+                                           styleClass="btn btn-primary"/>
+                            <h:button value="Cancelar" outcome="/views/domicilio/indexDomi.xhtml" 
+                                      styleClass="btn btn-secondary" style="margin-left: 10px;"/>
+                        </div>
+                    </h:form>
+                </f:view>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

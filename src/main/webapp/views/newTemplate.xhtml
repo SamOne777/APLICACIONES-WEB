@@ -48,9 +48,15 @@
         <!-- Contenido (menú y cuerpo) -->
         <div>
             <div id="left">
+                <!-- Menú para Domiciliarios -->
+                    <h:panelGroup rendered="#{login.usuarioLogueado.rolIDROL.nombreRol eq 'Domiciliario'}">
+    <h:link value="Domicilios Pendientes" outcome="/views/domicilioDomiciliario/pendientesDomiciliario.xhtml"/><br/>
+    <h:link value="Mis Domicilios" outcome="/views/domicilioDomiciliario/misDomicilios.xhtml"/><br/>
+</h:panelGroup>
+
                 <h:link value="Producto" outcome="/views/producto/index.xhtml"/> <br/>
                 <h:link value="Usuario" outcome="/views/usuario/indexUsuario.xhtml"/> <br/>
-                <h:link value="domicilio" outcome="/views/producto/index.xhtml"/> <br/>
+                <h:link value="domicilio" outcome="/views/domicilio/indexDomi.xhtml"/> <br/>
                 <h:link value="Promocion" outcome="/views/producto/index.xhtml"/>
                 <ui:insert name="left"/>
             </div>

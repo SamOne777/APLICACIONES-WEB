@@ -42,5 +42,10 @@ public class ProductoFacade extends AbstractFacade<Producto> implements Producto
             "SELECT DISTINCT p.estadoProducto FROM Producto p WHERE p.estadoProducto IS NOT NULL", String.class)
             .getResultList();
     }
+
+    @Override
+    public List<Producto> findByEstado(String activo) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
 

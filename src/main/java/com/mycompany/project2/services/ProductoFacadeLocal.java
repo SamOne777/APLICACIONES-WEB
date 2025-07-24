@@ -30,5 +30,7 @@ public interface ProductoFacadeLocal {
     int count();
     List<String> findCategoriasUnicas();
     List<String> findEstadosUnicos();
+
+    public List<Producto> findByEstado(String activo);
     
 }

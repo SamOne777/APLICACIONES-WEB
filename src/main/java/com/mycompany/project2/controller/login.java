@@ -146,11 +146,11 @@ public class login implements Serializable {
             case "Vendedor":
                 return "/views/ventas/index.xhtml?faces-redirect=true";
             case "Domiciliario":
-                return "/views/domicilios/index.xhtml?faces-redirect=true";
+                return "/views/domicilioDomiciliario/pendientesDomiciliario.xhtml?faces-redirect=true";
             case "Cliente":
                 return "/views/cliente/index.xhtml?faces-redirect=true";
             default:
-                LOGGER.warning("Rol no reconocido: " + rol);
+                LOGGER.log(Level.WARNING, "Rol no reconocido: {0}", rol);
                 return "/views/index.xhtml?faces-redirect=true";
         }
     }

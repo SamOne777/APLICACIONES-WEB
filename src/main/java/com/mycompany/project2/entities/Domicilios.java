@@ -24,10 +24,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
-/**
- *
- * @author user
- */
 @Entity
 @Table(name = "domicilios")
 @XmlRootElement
@@ -35,28 +31,40 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Domicilios.findAll", query = "SELECT d FROM Domicilios d"),
     @NamedQuery(name = "Domicilios.findByIdDomicilio", query = "SELECT d FROM Domicilios d WHERE d.idDomicilio = :idDomicilio"),
     @NamedQuery(name = "Domicilios.findByFechaDomicilio", query = "SELECT d FROM Domicilios d WHERE d.fechaDomicilio = :fechaDomicilio"),
-    @NamedQuery(name = "Domicilios.findByDirecccionDomicilio", query = "SELECT d FROM Domicilios d WHERE d.direcccionDomicilio = :direcccionDomicilio")})
+    @NamedQuery(name = "Domicilios.findByDirecccionDomicilio", query = "SELECT d FROM Domicilios d WHERE d.direcccionDomicilio = :direcccionDomicilio"),
+    @NamedQuery(name = "Domicilios.findByEstado", query = "SELECT d FROM Domicilios d WHERE d.estado = :estado")})
 public class Domicilios implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ID_DOMICILIO")
     private Integer idDomicilio;
+    
     @Basic(optional = false)
     @NotNull
     @Column(name = "FECHA_DOMICILIO")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaDomicilio;
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 120)
     @Column(name = "DIRECCCION_DOMICILIO")
     private String direcccionDomicilio;
+    
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 20)
+    @Column(name = "ESTADO")
+    private String estado = "PENDIENTE"; // Valores: PENDIENTE, ASIGNADO, EN_CAMINO, ENTREGADO, CANCELADO
+    
     @JoinColumn(name = "factura_ID_FACTURA", referencedColumnName = "ID_FACTURA")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Factura facturaIDFACTURA;
+    
     @JoinColumn(name = "usuario_ID_USUARIO_DOMICILIO", referencedColumnName = "ID_USUARIO")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Usuario usuarioIDUSUARIODOMICILIO;
@@ -68,12 +76,14 @@ public class Domicilios implements Serializable {
         this.idDomicilio = idDomicilio;
     }
 
-    public Domicilios(Integer idDomicilio, Date fechaDomicilio, String direcccionDomicilio) {
+    public Domicilios(Integer idDomicilio, Date fechaDomicilio, String direcccionDomicilio, String estado) {
         this.idDomicilio = idDomicilio;
         this.fechaDomicilio = fechaDomicilio;
         this.direcccionDomicilio = direcccionDomicilio;
+        this.estado = estado;
     }
 
+    // Getters y Setters para todos los campos
     public Integer getIdDomicilio() {
         return idDomicilio;
     }
@@ -96,6 +106,14 @@ public class Domicilios implements Serializable {
 
     public void setDirecccionDomicilio(String direcccionDomicilio) {
         this.direcccionDomicilio = direcccionDomicilio;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
     public Factura getFacturaIDFACTURA() {
@@ -123,7 +141,6 @@ public class Domicilios implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Domicilios)) {
             return false;
         }
@@ -138,5 +155,4 @@ public class Domicilios implements Serializable {
     public String toString() {
         return "com.mycompany.project2.entities.Domicilios[ idDomicilio=" + idDomicilio + " ]";
     }
-    
 }

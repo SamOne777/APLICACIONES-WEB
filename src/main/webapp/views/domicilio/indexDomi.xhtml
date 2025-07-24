@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <body>
+        <ui:composition template="./../newTemplate.xhtml">
+            <ui:define name="content">
+                <h:form>
+                    <h:commandButton value="Asignar Domicilio" action="#{domicilioController.crearDomicilioP1()}"/>
+                </h:form>
+
+                <table id="t-all" class="jsf-data-table display nowrap" width="100%">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Fecha</th>
+                            <th>Dirección</th>
+                            <th>Domiciliario</th>
+                            <th>Factura</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ui:repeat value="#{domicilioController.obtenerDomicilios()}" var="item">
+                            <tr>
+                                <td>#{item.idDomicilio}</td>
+                                <td>#{item.fechaDomicilio}</td>
+                                <td>#{item.direcccionDomicilio}</td>
+                                <td>#{item.usuarioIDUSUARIODOMICILIO.nombreUsuario}</td>
+                                <td>#{item.facturaIDFACTURA.idFactura}</td>
+                                <td>
+                                    <h:form>
+                                        <h:commandButton value="Editar" action="#{domicilioController.editarDomicilioP1(item)}"/>
+                                        <h:commandButton value="Cancelar" 
+                                                         onclick="return confirm('¿Está seguro de cancelar este domicilio?')" 
+                                                         action="#{domicilioController.cancelarDomicilio(item)}"/>
+                                    </h:form>                             
+                                </td>
+                            </tr>
+                        </ui:repeat>
+                    </tbody>
+                </table>
+
+                <script>
+                    $(document).ready(function () {
+                        $('.jsf-data-table').DataTable({
+                            dom: 'Bfrtip',
+                            "language": {
+                                "url": "https://cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json"
+                            },
+                            "pageLength": 50,
+                            buttons: [
+                                'copy', 'csv', 'excel', 'pdf', 'print'
+                            ]
+                        });
+                    });
+                </script>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

@@ -13,50 +13,50 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" />
     </h:head>
     <h:body>
-        <!-- Barra de navegación mejorada -->
+        <!-- Barra de navegación  -->
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary custom-navbar">
-    <div class="container-fluid custom-navbar-container">
-        <!-- Logo y elementos de navegación (izquierda) -->
-        <div class="d-flex align-items-center navbar-left-section">
-            <h:graphicImage value="/resources/images/logo.png" styleClass="header-logo" />
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#servicios">Servicios</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#nosotros">Quiénes Somos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="catalogo.xhtml">Catálogo</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="contacto.xhtml">Contacto</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
+            <div class="container-fluid custom-navbar-container">
+                <!-- Logo y elementos de navegación (izquierda) -->
+                <div class="d-flex align-items-center navbar-left-section">
+                    <h:graphicImage value="/resources/images/logo.png" styleClass="header-logo" />
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav me-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#servicios">Servicios</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#nosotros">Quiénes Somos</a>
+                            </li>
+                            <li class="nav-item">
+                                <h:link outcome="/views/catalogo/catalogo" styleClass="nav-link" value="Catálogo" />
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="contacto.xhtml">Contacto</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
 
-        <!-- Botones (derecha) -->
-        <div class="navbar-right-section">
-            <a href="login.xhtml" class="btn btn-outline-light custom-nav-btn">
-                <i class="bi bi-box-arrow-in-right"></i> Iniciar Sesión
-            </a>
-            <a href="registro.xhtml" class="btn btn-light custom-nav-btn">
-                <i class="bi bi-person-plus"></i> Registrarse
-            </a>
-            <a href="carrito_compra.xhtml" class="btn btn-light custom-nav-btn position-relative">
-                <i class="bi bi-cart"></i>
-                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                    0
-                </span>
-            </a>
-        </div>
-    </div>
-</nav>
+                <!-- Botones iniciar sesion y registrarse -->
+                <div class="navbar-right-section">
+                    <a href="login.xhtml" class="btn btn-outline-light custom-nav-btn">
+                        <i class="bi bi-box-arrow-in-right"></i> Iniciar Sesión
+                    </a>
+                    <a href="registro.xhtml" class="btn btn-light custom-nav-btn">
+                        <i class="bi bi-person-plus"></i> Registrarse
+                    </a>
+                    <a href="carrito_compra.xhtml" class="btn btn-light custom-nav-btn position-relative">
+                        <i class="bi bi-cart"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                            0
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </nav>
 
         <!-- Secciones -->
         <section class="hero-section">

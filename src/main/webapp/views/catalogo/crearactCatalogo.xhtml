@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <body>
+        <ui:composition template="./../newTemplate.xhtml">
+            <ui:define name="content">
+                <h:form id="frmProducto">
+                    <h1>
+                        <h:outputText value="#{empty catalogoController.productoSeleccionado.idProducto ? 'Nuevo Producto' : 'Editar Producto'}" />
+                    </h1>
+
+                    <h:panelGrid columns="3" style="margin-bottom:20px">
+                        <!-- Campos del formulario similares a crearact.xhtml pero adaptados -->
+                        <h:outputLabel value="Código:" for="codigo"/>
+                        <h:inputText id="codigo" value="#{catalogoController.productoSeleccionado.codigoProducto}" 
+                                     required="true" requiredMessage="Requerido"/>
+                        <h:message for="codigo" style="color:red"/>
+
+                        <!-- Resto de campos (nombre, precio, stock, etc.) -->
+
+                        <h:commandButton value="#{empty catalogoController.productoSeleccionado.idProducto ? 'Guardar' : 'Actualizar'}" 
+                                         action="#{empty catalogoController.productoSeleccionado.idProducto ? 
+                                                   catalogoController.guardarProducto() : catalogoController.actualizarProducto()}"/>
+                        <h:button value="Cancelar" outcome="indexCatalogo"/>
+                    </h:panelGrid>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>
